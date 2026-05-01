@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Create Event</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+
+      background:
+      linear-gradient(
+      135deg,
+      #f5fff8,
+      #eef7ff
+      );
+
+      min-height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      padding:30px;
+    }
+
+    .container{
+
+      width:100%;
+      max-width:520px;
+
+      background:white;
+
+      border-radius:34px;
+
+      padding:40px 35px;
+
+      box-shadow:
+      0 12px 35px rgba(0,0,0,0.08);
+
+      animation:fadeUp 0.7s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(30px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .title{
+
+      font-size:38px;
+
+      font-weight:700;
+
+      color:#111827;
+
+      margin-bottom:8px;
+    }
+
+    .subtitle{
+
+      color:#6b7280;
+
+      font-size:15px;
+
+      margin-bottom:35px;
+    }
+
+    .form-group{
+      margin-bottom:24px;
+    }
+
+    .form-group label{
+
+      display:block;
+
+      font-size:20px;
+
+      font-weight:700;
+
+      color:#111827;
+
+      margin-bottom:14px;
+    }
+
+    .form-group input{
+
+      width:100%;
+
+      padding:20px 22px;
+
+      border-radius:24px;
+
+      border:2px solid #e5e7eb;
+
+      outline:none;
+
+      font-size:18px;
+
+      font-weight:400;
+
+      background:white;
+
+      color:#111827;
+
+      transition:0.3s;
+    }
+
+    .form-group input::placeholder{
+
+      color:#9ca3af;
+
+      font-weight:400;
+    }
+
+    .form-group input:focus{
+
+      border-color:#2E9F6B;
+
+      box-shadow:
+      0 0 0 5px rgba(46,159,107,0.12);
+
+      transform:translateY(-1px);
+    }
+
+    .date-input{
+
+      appearance:none;
+      -webkit-appearance:none;
+
+      cursor:pointer;
+
+      color:#6b7280;
+
+      font-weight:400;
+    }
+
+    .create-btn{
+
+      width:100%;
+
+      padding:18px;
+
+      border:none;
+
+      border-radius:22px;
+
+      background:
+      linear-gradient(
+      135deg,
+      #2E9F6B,
+      #34c27d
+      );
+
+      color:white;
+
+      font-size:19px;
+
+      font-weight:600;
+
+      cursor:pointer;
+
+      margin-top:18px;
+
+      transition:0.3s;
+
+      box-shadow:
+      0 10px 25px rgba(46,159,107,0.22);
+    }
+
+    .create-btn:hover{
+
+      transform:translateY(-2px);
+
+      box-shadow:
+      0 14px 30px rgba(46,159,107,0.28);
+    }
+
+    @media(max-width:600px){
+
+      .container{
+        padding:32px 24px;
+      }
+
+      .title{
+        font-size:32px;
+      }
+
+      .form-group label{
+        font-size:18px;
+      }
+
+      .form-group input{
+        font-size:17px;
+        padding:18px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="title">
+      Create Event
+    </div>
+
+    <div class="subtitle">
+      Plan your perfect event with PlanSmart AI ✨
+    </div>
+
+    <!-- EVENT NAME -->
+
+    <div class="form-group">
+
+      <label>
+        Event Name
+      </label>
+
+      <input
+      type="text"
+      id="name"
+      placeholder="Enter event name">
+
+    </div>
+
+    <!-- EVENT TYPE -->
+
+    <div class="form-group">
+
+      <label>
+        Event Type
+      </label>
+
+      <input
+      type="text"
+      id="type"
+      placeholder="e.g. College Fest">
+
+    </div>
+
+    <!-- VENUE -->
+
+    <div class="form-group">
+
+      <label>
+        Venue
+      </label>
+
+      <input
+      type="text"
+      id="venue"
+      placeholder="Enter venue location">
+
+    </div>
+
+    <!-- GUESTS -->
+
+    <div class="form-group">
+
+      <label>
+        Guests
+      </label>
+
+      <input
+      type="number"
+      id="guests"
+      placeholder="Number of guests">
+
+    </div>
+
+    <!-- BUDGET -->
+
+    <div class="form-group">
+
+      <label>
+        Budget (₹)
+      </label>
+
+      <input
+      type="number"
+      id="budget"
+      placeholder="Total budget">
+
+    </div>
+
+    <!-- DATE -->
+
+    <div class="form-group">
+
+      <label>
+        Date & Time
+      </label>
+
+      <input
+      type="datetime-local"
+      id="date"
+      class="date-input">
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button
+    type="button"
+    class="create-btn"
+    onclick="saveEvent()">
+
+      Create Event
+
+    </button>
+
+  </div>
+
+<script>
+
+function saveEvent(){
+
+  const name =
+  document.getElementById("name").value.trim();
+
+  const type =
+  document.getElementById("type").value.trim();
+
+  const venue =
+  document.getElementById("venue").value.trim();
+
+  const guests =
+  document.getElementById("guests").value;
+
+  const budget =
+  document.getElementById("budget").value;
+
+  const date =
+  document.getElementById("date").value;
+
+  // VALIDATION
+
+  if(
+    name === "" ||
+    type === "" ||
+    venue === "" ||
+    guests === "" ||
+    budget === "" ||
+    date === ""
+  ){
+
+    alert("Please fill all fields");
+
+    return;
+  }
+
+  // GET EXISTING EVENTS
+
+  let events =
+  JSON.parse(
+    localStorage.getItem("events")
+  ) || [];
+
+  // CREATE EVENT OBJECT
+
+  const newEvent = {
+
+    name:name,
+
+    type:type,
+
+    venue:venue,
+
+    guests:guests,
+
+    budget:budget,
+
+    date:date,
+
+    checklist:[
+
+      {
+        task:"Book venue",
+        done:false
+      },
+
+      {
+        task:"Arrange catering",
+        done:false
+      },
+
+      {
+        task:"Invite guests",
+        done:false
+      },
+
+      {
+        task:"Decorations",
+        done:false
+      }
+
+    ]
+  };
+
+  // SAVE EVENT
+
+  events.push(newEvent);
+
+  localStorage.setItem(
+    "events",
+    JSON.stringify(events)
+  );
+
+  // REDIRECT
+
+  window.location.href =
+  "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>

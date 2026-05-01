@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Event Details</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+
+      background:
+      linear-gradient(
+      135deg,
+      #f5fff8,
+      #eef7ff
+      );
+
+      padding:25px;
+
+      color:#111827;
+    }
+
+    .back-btn{
+
+      display:inline-block;
+
+      margin-bottom:25px;
+
+      text-decoration:none;
+
+      color:#111827;
+
+      font-size:18px;
+
+      font-weight:600;
+    }
+
+    .card{
+
+      background:white;
+
+      border-radius:30px;
+
+      padding:28px;
+
+      margin-bottom:25px;
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .event-title{
+
+      font-size:38px;
+
+      font-weight:700;
+
+      margin-bottom:8px;
+    }
+
+    .event-type{
+
+      font-size:18px;
+
+      color:#6b7280;
+
+      margin-bottom:22px;
+    }
+
+    .countdown{
+
+      background:
+      linear-gradient(
+      135deg,
+      #2E9F6B,
+      #34c27d
+      );
+
+      color:white;
+
+      padding:18px;
+
+      border-radius:20px;
+
+      font-size:22px;
+
+      font-weight:600;
+
+      text-align:center;
+
+      margin-bottom:25px;
+    }
+
+    .info{
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:16px;
+
+      font-size:18px;
+    }
+
+    .section-title{
+
+      font-size:24px;
+
+      font-weight:700;
+
+      margin-bottom:18px;
+    }
+
+    .checklist{
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:14px;
+    }
+
+    .check-item{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:14px;
+
+      background:#f9fafb;
+
+      padding:16px;
+
+      border-radius:16px;
+
+      font-size:17px;
+    }
+
+    .check-item input{
+
+      width:22px;
+      height:22px;
+
+      accent-color:#2E9F6B;
+    }
+
+    .timeline{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      margin-top:20px;
+
+      position:relative;
+    }
+
+    .timeline::before{
+
+      content:"";
+
+      position:absolute;
+
+      top:20px;
+      left:0;
+
+      width:100%;
+      height:4px;
+
+      background:#d1d5db;
+
+      z-index:0;
+    }
+
+    .step{
+
+      position:relative;
+
+      z-index:2;
+
+      text-align:center;
+
+      width:20%;
+    }
+
+    .step-circle{
+
+      width:42px;
+      height:42px;
+
+      border-radius:50%;
+
+      background:#d1d5db;
+
+      color:white;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      margin:auto;
+
+      font-weight:700;
+
+      margin-bottom:10px;
+    }
+
+    .active .step-circle{
+
+      background:#2E9F6B;
+    }
+
+    .step-text{
+
+      font-size:14px;
+
+      font-weight:500;
+    }
+
+    .btn-group{
+
+      display:flex;
+
+      gap:15px;
+
+      flex-wrap:wrap;
+
+      margin-top:25px;
+    }
+
+    .btn{
+
+      flex:1;
+
+      padding:16px;
+
+      border:none;
+
+      border-radius:18px;
+
+      cursor:pointer;
+
+      font-size:16px;
+
+      font-weight:600;
+
+      transition:0.3s;
+    }
+
+    .save-btn{
+
+      background:
+      linear-gradient(
+      135deg,
+      #2E9F6B,
+      #34c27d
+      );
+
+      color:white;
+    }
+
+    .invite-btn{
+
+      background:#eef7ff;
+
+      color:#2563eb;
+    }
+
+    .ai-btn{
+
+      background:#111827;
+
+      color:white;
+    }
+
+    .btn:hover{
+
+      transform:translateY(-2px);
+    }
+
+    .ai-box{
+
+      margin-top:20px;
+
+      background:#f9fafb;
+
+      padding:18px;
+
+      border-radius:18px;
+
+      display:none;
+
+      line-height:1.7;
+    }
+
+    /* INVITATION */
+
+    .invite-card{
+
+      margin-top:10px;
+
+      position:relative;
+
+      overflow:hidden;
+
+      border-radius:40px;
+
+      padding:70px 35px;
+
+      text-align:center;
+
+      background:
+      linear-gradient(
+      135deg,
+      #fff8f1,
+      #ffffff,
+      #fef3f2
+      );
+
+      border:4px solid #f5d0a9;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .invite-overlay{
+
+      position:absolute;
+
+      inset:15px;
+
+      border:2px dashed #f9a8d4;
+
+      border-radius:30px;
+    }
+
+    .invite-content{
+
+      position:relative;
+
+      z-index:2;
+    }
+
+    .save-text{
+
+      font-size:18px;
+
+      letter-spacing:7px;
+
+      color:#6b7280;
+
+      margin-bottom:30px;
+
+      font-weight:600;
+    }
+
+    .invite-event-name{
+
+      font-size:52px;
+
+      font-weight:700;
+
+      color:#111827;
+
+      margin-bottom:18px;
+
+      line-height:1.2;
+    }
+
+    .invite-type{
+
+      font-size:20px;
+
+      color:#2E9F6B;
+
+      font-weight:600;
+
+      margin-bottom:28px;
+    }
+
+    .divider{
+
+      width:120px;
+
+      height:3px;
+
+      background:
+      linear-gradient(
+      90deg,
+      transparent,
+      #f59e0b,
+      transparent
+      );
+
+      margin:auto;
+
+      margin-bottom:28px;
+    }
+
+    .invite-date{
+
+      font-size:28px;
+
+      font-weight:600;
+
+      color:#111827;
+
+      margin-bottom:35px;
+
+      line-height:1.6;
+    }
+
+    .invite-message{
+
+      font-size:20px;
+
+      color:#6b7280;
+
+      line-height:1.9;
+
+      max-width:550px;
+
+      margin:auto;
+
+      margin-bottom:40px;
+    }
+
+    .invite-footer{
+
+      font-size:15px;
+
+      color:#9ca3af;
+
+      letter-spacing:2px;
+    }
+
+    .error-box{
+
+      background:white;
+
+      padding:60px;
+
+      border-radius:30px;
+
+      text-align:center;
+
+      box-shadow:
+      0 10px 25px rgba(0,0,0,0.05);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<a href="dashboard.html"
+class="back-btn">
+
+  ← Back
+
+</a>
+
+<div id="eventContainer"></div>
+
+<script>
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const index =
+params.get("index");
+
+let events =
+JSON.parse(
+localStorage.getItem("events")
+) || [];
+
+const event =
+events[index];
+
+if(!event){
+
+  document.getElementById(
+    "eventContainer"
+  ).innerHTML = `
+
+  <div class="error-box">
+
+    <h1>
+      Event Not Found
+    </h1>
+
+    <br>
+
+    <a href="dashboard.html"
+    class="back-btn">
+
+      Go Back
+
+    </a>
+
+  </div>
+
+  `;
+
+  throw new Error(
+    "Event not found"
+  );
+}
+
+const container =
+document.getElementById(
+"eventContainer"
+);
+
+function getCountdown(date){
+
+  const eventDate =
+  new Date(date);
+
+  const now =
+  new Date();
+
+  const diff =
+  eventDate - now;
+
+  if(diff <= 0){
+
+    return "Event Started";
+  }
+
+  const days =
+  Math.floor(
+    diff / (1000*60*60*24)
+  );
+
+  const hours =
+  Math.floor(
+    (diff % (1000*60*60*24))
+    / (1000*60*60)
+  );
+
+  const mins =
+  Math.floor(
+    (diff % (1000*60*60))
+    / (1000*60)
+  );
+
+  return `${days}d ${hours}h ${mins}m left`;
+}
+
+function getTimelineStep(){
+
+  const done =
+  event.checklist.filter(
+    item => item.done
+  ).length;
+
+  if(done === 0) return 1;
+  if(done <= 1) return 2;
+  if(done <= 2) return 3;
+  if(done <= 3) return 4;
+
+  return 5;
+}
+
+const currentStep =
+getTimelineStep();
+
+container.innerHTML = `
+
+<div class="card">
+
+  <div class="event-title">
+
+    ${event.name}
+
+  </div>
+
+  <div class="event-type">
+
+    ${event.type}
+
+  </div>
+
+  <div class="countdown"
+  id="countdown">
+
+    ${getCountdown(event.date)}
+
+  </div>
+
+  <div class="info">
+
+    <div>
+      👥 Guests:
+      ${event.guests}
+    </div>
+
+    <div>
+      📍 Venue:
+      ${event.venue || "Venue not added"}
+    </div>
+
+    <div>
+      💰 Budget:
+      Rs.${event.budget}
+    </div>
+
+    <div>
+      📅
+      ${new Date(event.date)
+      .toLocaleString()}
+    </div>
+
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="section-title">
+
+    Checklist
+
+  </div>
+
+  <div class="checklist">
+
+    ${
+      event.checklist.map(
+        (item,i)=>`
+
+        <label class="check-item">
+
+          <input
+          type="checkbox"
+
+          ${item.done ? "checked" : ""}
+
+          onchange="toggleTask(${i})">
+
+          ${item.task}
+
+        </label>
+
+      `
+      ).join("")
+    }
+
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="section-title">
+
+    Timeline
+
+  </div>
+
+  <div class="timeline">
+
+    <div class="step ${currentStep>=1?"active":""}">
+      <div class="step-circle">1</div>
+      <div class="step-text">Planning</div>
+    </div>
+
+    <div class="step ${currentStep>=2?"active":""}">
+      <div class="step-circle">2</div>
+      <div class="step-text">Booking</div>
+    </div>
+
+    <div class="step ${currentStep>=3?"active":""}">
+      <div class="step-circle">3</div>
+      <div class="step-text">Promotion</div>
+    </div>
+
+    <div class="step ${currentStep>=4?"active":""}">
+      <div class="step-circle">4</div>
+      <div class="step-text">Event Day</div>
+    </div>
+
+    <div class="step ${currentStep>=5?"active":""}">
+      <div class="step-circle">5</div>
+      <div class="step-text">Wrap Up</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="section-title">
+
+    Smart Actions
+
+  </div>
+
+  <div class="btn-group">
+
+    <button
+    class="btn save-btn"
+    onclick="savePDF()">
+
+      Save PDF
+
+    </button>
+
+    <button
+    class="btn invite-btn"
+    onclick="shareInvitation()">
+
+      Invite
+
+    </button>
+
+    <button
+    class="btn ai-btn"
+    onclick="toggleAI()">
+
+      AI Suggestions
+
+    </button>
+
+  </div>
+
+  <div class="ai-box"
+  id="aiBox">
+
+    • Start promotions 2 weeks early.<br><br>
+
+    • Allocate emergency backup budget.<br><br>
+
+    • Send invitations at least 10 days before event.<br><br>
+
+    • Confirm vendors 1 week before event.
+
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="section-title">
+
+    Invitation
+
+  </div>
+
+  <div class="invite-card"
+  id="inviteCard">
+
+    <div class="invite-overlay"></div>
+
+    <div class="invite-content">
+
+      <div class="save-text">
+
+        SAVE THE DATE
+
+      </div>
+
+      <div class="invite-event-name">
+
+        ${event.name}
+
+      </div>
+
+      <div class="invite-type">
+
+        ${event.type}
+
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="invite-date">
+
+        ${new Date(event.date)
+        .toLocaleString()}
+
+      </div>
+
+      <div class="invite-message">
+
+        Venue:
+        <br><br>
+
+        <strong>
+          ${event.venue || "Venue not added"}
+        </strong>
+
+        <br><br>
+
+        We warmly invite you to join us
+        for this special celebration.
+
+      </div>
+
+      <div class="invite-footer">
+
+        Hosted with PlanSmart AI
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+`;
+
+setInterval(()=>{
+
+  document.getElementById(
+    "countdown"
+  ).innerText =
+  getCountdown(event.date);
+
+},1000);
+
+function toggleTask(i){
+
+  event.checklist[i].done =
+  !event.checklist[i].done;
+
+  localStorage.setItem(
+    "events",
+    JSON.stringify(events)
+  );
+
+  location.reload();
+}
+
+function toggleAI(){
+
+  const box =
+  document.getElementById(
+    "aiBox"
+  );
+
+  if(box.style.display==="block"){
+
+    box.style.display="none";
+
+  }else{
+
+    box.style.display="block";
+  }
+}
+
+async function shareInvitation(){
+
+  const card =
+  document.getElementById(
+    "inviteCard"
+  );
+
+  const canvas =
+  await html2canvas(card);
+
+  canvas.toBlob(async(blob)=>{
+
+    const file =
+    new File(
+      [blob],
+      "invitation.png",
+      {
+        type:"image/png"
+      }
+    );
+
+    if(
+      navigator.canShare &&
+      navigator.canShare({
+        files:[file]
+      })
+    ){
+
+      await navigator.share({
+
+        title:event.name,
+
+        text:
+        `${event.name}
+
+Venue:
+${event.venue || "Venue not added"}
+
+You're invited!`,
+
+        files:[file]
+
+      });
+
+    }else{
+
+      const link =
+      document.createElement("a");
+
+      link.download =
+      "invitation.png";
+
+      link.href =
+      canvas.toDataURL();
+
+      link.click();
+    }
+
+  });
+}
+
+function savePDF(){
+
+  const { jsPDF } =
+  window.jspdf;
+
+  const doc =
+  new jsPDF();
+
+  doc.setFillColor(
+    46,
+    159,
+    107
+  );
+
+  doc.rect(
+    0,
+    0,
+    210,
+    35,
+    "F"
+  );
+
+  doc.setTextColor(
+    255,
+    255,
+    255
+  );
+
+  doc.setFontSize(24);
+
+  doc.text(
+    event.name,
+    20,
+    22
+  );
+
+  doc.setTextColor(
+    20,
+    20,
+    20
+  );
+
+  doc.setFillColor(
+    245,
+    245,
+    245
+  );
+
+  doc.roundedRect(
+    15,
+    45,
+    180,
+    90,
+    5,
+    5,
+    "F"
+  );
+
+  doc.setFontSize(16);
+
+  doc.text(
+    `Event Type: ${event.type}`,
+    25,
+    65
+  );
+
+  doc.text(
+    `Venue: ${event.venue || "Venue not added"}`,
+    25,
+    80
+  );
+
+  doc.text(
+    `Guests: ${event.guests}`,
+    25,
+    95
+  );
+
+  doc.text(
+    `Budget: Rs.${event.budget}`,
+    25,
+    110
+  );
+
+  doc.text(
+    `Date: ${
+      new Date(event.date)
+      .toLocaleString()
+    }`,
+    25,
+    125
+  );
+
+  doc.setFontSize(20);
+
+  doc.text(
+    "Checklist",
+    20,
+    155
+  );
+
+  let y = 175;
+
+  event.checklist.forEach(item=>{
+
+    doc.setFillColor(
+      240,
+      240,
+      240
+    );
+
+    doc.roundedRect(
+      20,
+      y-8,
+      160,
+      12,
+      3,
+      3,
+      "F"
+    );
+
+    doc.setFontSize(14);
+
+    doc.text(
+      `- ${item.task}`,
+      28,
+      y
+    );
+
+    y += 18;
+  });
+
+  doc.setFontSize(12);
+
+  doc.setTextColor(120);
+
+  doc.text(
+    "Generated by PlanSmart AI",
+    20,
+    285
+  );
+
+  doc.save(
+    `${event.name}.pdf`
+  );
+}
+
+</script>
+
+</body>
+</html>

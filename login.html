@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>PlanSmart AI Login</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:
+      linear-gradient(
+      135deg,
+      #f5fff8,
+      #eef7ff
+      );
+      overflow:hidden;
+    }
+
+    .login-box{
+
+      width:380px;
+      background:white;
+      border-radius:34px;
+      padding:45px 35px;
+      box-shadow:
+      0 10px 35px rgba(0,0,0,0.08);
+
+      animation:fadeUp 0.7s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(30px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .logo{
+
+      text-align:center;
+      margin-bottom:35px;
+    }
+
+    .logo h1{
+
+      font-size:46px;
+      font-weight:700;
+      color:#2E9F6B;
+    }
+
+    .logo span{
+      color:#111;
+      font-weight:500;
+    }
+
+    .subtitle{
+
+      text-align:center;
+      color:#777;
+      margin-top:8px;
+      font-size:15px;
+    }
+
+    .heading{
+
+      text-align:center;
+      margin:35px 0 28px;
+      font-size:26px;
+      font-weight:600;
+      color:#222;
+    }
+
+    .input-box{
+
+      margin-bottom:20px;
+    }
+
+    .input-box label{
+
+      display:block;
+      margin-bottom:10px;
+      color:#444;
+      font-size:15px;
+      font-weight:500;
+    }
+
+    .input-box input{
+
+      width:100%;
+      padding:16px 18px;
+      border-radius:16px;
+      border:1.8px solid #dfe5eb;
+      outline:none;
+      font-size:15px;
+      transition:0.3s;
+      background:#fafafa;
+    }
+
+    .input-box input:focus{
+
+      border-color:#2E9F6B;
+      background:white;
+      box-shadow:
+      0 0 0 4px rgba(46,159,107,0.1);
+    }
+
+    .forgot{
+
+      text-align:right;
+      margin-top:-5px;
+      margin-bottom:25px;
+    }
+
+    .forgot a{
+
+      text-decoration:none;
+      color:#2E9F6B;
+      font-size:14px;
+      font-weight:500;
+    }
+
+    .login-btn{
+
+      width:100%;
+      border:none;
+      padding:16px;
+      border-radius:18px;
+      background:
+      linear-gradient(
+      135deg,
+      #2E9F6B,
+      #34c27d
+      );
+
+      color:white;
+      font-size:17px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:
+      0 10px 20px rgba(46,159,107,0.2);
+    }
+
+    .login-btn:hover{
+
+      transform:translateY(-2px);
+    }
+
+    .divider{
+
+      text-align:center;
+      margin:28px 0;
+      color:#888;
+      position:relative;
+      font-size:14px;
+    }
+
+    .divider::before{
+
+      content:'';
+      position:absolute;
+      left:0;
+      top:50%;
+      width:38%;
+      height:1px;
+      background:#ddd;
+    }
+
+    .divider::after{
+
+      content:'';
+      position:absolute;
+      right:0;
+      top:50%;
+      width:38%;
+      height:1px;
+      background:#ddd;
+    }
+
+    .google-btn{
+
+      width:100%;
+      padding:15px;
+      border-radius:18px;
+      border:none;
+      background:white;
+      border:1.8px solid #e2e8f0;
+      cursor:pointer;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+
+      font-size:15px;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .google-btn:hover{
+
+      background:#f8fafc;
+      transform:translateY(-2px);
+    }
+
+    .google-icon{
+
+      width:22px;
+      height:22px;
+    }
+
+    .signup{
+
+      margin-top:28px;
+      text-align:center;
+      color:#666;
+      font-size:14px;
+    }
+
+    .signup span{
+
+      color:#2E9F6B;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    @media(max-width:450px){
+
+      .login-box{
+        width:92%;
+        padding:38px 24px;
+      }
+
+      .logo h1{
+        font-size:40px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <div class="logo">
+
+      <h1>
+        Plan<span>Smart AI</span>
+      </h1>
+
+      <div class="subtitle">
+        Plan smart. Celebrate better.
+      </div>
+
+    </div>
+
+    <div class="heading">
+      Login
+    </div>
+
+    <div class="input-box">
+
+      <label>Username</label>
+
+      <input
+      type="text"
+      id="username"
+      placeholder="Enter username">
+    </div>
+
+    <div class="input-box">
+
+      <label>Password</label>
+
+      <input
+      type="password"
+      id="password"
+      placeholder="Enter password">
+    </div>
+
+    <div class="forgot">
+      <a href="#">
+        Forgot Password?
+      </a>
+    </div>
+
+    <button class="login-btn"
+    onclick="login()">
+      Login
+    </button>
+
+    <div class="divider">
+      Or continue with
+    </div>
+
+    <button class="google-btn"
+    onclick="googleLogin()">
+
+      <img
+      class="google-icon"
+      src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
+
+      Continue with Google
+
+    </button>
+
+    <div class="signup">
+      Don't have an account?
+      <span>Sign up</span>
+    </div>
+
+  </div>
+
+<script>
+
+function login(){
+
+  const username =
+  document.getElementById("username").value;
+
+  const password =
+  document.getElementById("password").value;
+
+  if(username==="" || password===""){
+
+    alert("Please fill all fields");
+
+    return;
+  }
+
+  localStorage.setItem(
+    "loggedInUser",
+    username
+  );
+
+  window.location.href =
+  "dashboard.html";
+}
+
+function googleLogin(){
+
+  alert(
+    "Google Login Connected Successfully!"
+  );
+
+  localStorage.setItem(
+    "loggedInUser",
+    "Google User"
+  );
+
+  window.location.href =
+  "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
